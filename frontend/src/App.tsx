@@ -14,6 +14,7 @@ import { ManageBarbersPage } from './pages/owner/ManageBarbersPage';
 import { JoinQueuePage } from './pages/customer/JoinQueuePage';
 import { CustomerHistoryPage } from './pages/customer/CustomerHistoryPage';
 import { ReceptionDashboardPage } from './pages/reception/ReceptionDashboardPage';
+import { BarberDashboardPage } from './pages/barber/BarberDashboardPage';
 
 function PlaceholderPage({ title, description }: { title: string; description: string }) {
   return (
@@ -87,10 +88,7 @@ function App() {
                 path="/barber"
                 element={
                   <ProtectedRoute allowedRoles={['BARBER', 'OWNER']}>
-                    <PlaceholderPage
-                      title="Barber Workstation"
-                      description="Manage current client, start & finish haircuts, take breaks"
-                    />
+                    <BarberDashboardPage />
                   </ProtectedRoute>
                 }
               />
