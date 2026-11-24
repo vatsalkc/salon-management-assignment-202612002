@@ -11,6 +11,9 @@ import { DashboardLayout } from './layouts/DashboardLayout';
 import { ManageServicesPage } from './pages/owner/ManageServicesPage';
 import { ManageBarbersPage } from './pages/owner/ManageBarbersPage';
 
+import { JoinQueuePage } from './pages/customer/JoinQueuePage';
+import { CustomerHistoryPage } from './pages/customer/CustomerHistoryPage';
+
 function PlaceholderPage({ title, description }: { title: string; description: string }) {
   return (
     <div className="space-y-4">
@@ -54,24 +57,8 @@ function App() {
               }
             >
               {/* Customer Home / Join Queue */}
-              <Route
-                path="/"
-                element={
-                  <PlaceholderPage
-                    title="Join the Queue"
-                    description="Select your services and barber to get your token"
-                  />
-                }
-              />
-              <Route
-                path="/history"
-                element={
-                  <PlaceholderPage
-                    title="Queue History"
-                    description="Your previous salon visits and tokens"
-                  />
-                }
-              />
+              <Route path="/" element={<JoinQueuePage />} />
+              <Route path="/history" element={<CustomerHistoryPage />} />
 
               {/* Receptionist Routes */}
               <Route

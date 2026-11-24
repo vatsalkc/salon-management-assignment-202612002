@@ -105,6 +105,7 @@ export interface JoinQueuePayload {
   customerPhone: string;
   serviceIds: string[];
   barberId?: string | null;
+  notes?: string;
 }
 
 // ─── Salon Settings ──────────────────────────────────────
