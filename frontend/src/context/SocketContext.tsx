@@ -19,6 +19,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const s = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
+      withCredentials: true,
       reconnectionAttempts: 10,
       reconnectionDelay: 1000,
     });

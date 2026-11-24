@@ -1,5 +1,9 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'https://salon-management-assignment-202612002.onrender.com';
+const rawSocketUrl = import.meta.env.VITE_SOCKET_URL || rawApiUrl;
+
+export const API_URL = rawApiUrl.replace(/\/+$/, '');
+export const SOCKET_URL = rawSocketUrl.replace(/\/+$/, '');
+
 
 export const TOKEN_KEY = 'salon_token';
 export const THEME_KEY = 'salon_theme';
