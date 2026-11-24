@@ -19,18 +19,7 @@ import { BarberDashboardPage } from './pages/barber/BarberDashboardPage';
 import { OwnerDashboardPage } from './pages/owner/OwnerDashboardPage';
 import { OwnerAnalyticsPage } from './pages/owner/OwnerAnalyticsPage';
 import { OwnerSettingsPage } from './pages/owner/OwnerSettingsPage';
-
-function PlaceholderPage({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="space-y-4">
-      <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-      <p className="text-muted-foreground">{description}</p>
-      <div className="p-6 border border-dashed rounded-xl text-center text-sm text-muted-foreground">
-        Feature under active construction
-      </div>
-    </div>
-  );
-}
+import { TVDisplayPage } from './pages/tv/TVDisplayPage';
 
 function App() {
   return (
@@ -44,15 +33,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
 
             {/* Public TV Display */}
-            <Route
-              path="/tv"
-              element={
-                <PlaceholderPage
-                  title="TV Queue Display"
-                  description="Real-time multi-barber public display"
-                />
-              }
-            />
+            <Route path="/tv" element={<TVDisplayPage />} />
 
             {/* Authenticated Application */}
             <Route
@@ -79,10 +60,7 @@ function App() {
                 path="/reception/barbers"
                 element={
                   <ProtectedRoute allowedRoles={['RECEPTIONIST', 'OWNER']}>
-                    <PlaceholderPage
-                      title="Barber Status Overview"
-                      description="Monitor barber stations and break times"
-                    />
+                    <ManageBarbersPage />
                   </ProtectedRoute>
                 }
               />
