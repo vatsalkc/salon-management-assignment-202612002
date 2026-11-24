@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import authRoutes from './auth.routes';
+import serviceRoutes from './service.routes';
+import barberRoutes from './barber.routes';
 
 const router = Router();
 
@@ -14,6 +16,8 @@ router.get('/health', (_req, res) => {
 
 // Route modules
 router.use('/auth', authRoutes);
+router.use('/services', serviceRoutes);
+router.use('/barbers', barberRoutes);
 // router.use('/queue', queueRoutes);
 // router.use('/barbers', barberRoutes);
 // router.use('/services', serviceRoutes);

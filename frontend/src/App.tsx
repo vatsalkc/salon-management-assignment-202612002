@@ -7,6 +7,9 @@ import { RegisterPage } from './pages/auth/RegisterPage';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 import { DashboardLayout } from './layouts/DashboardLayout';
 
+import { ManageServicesPage } from './pages/owner/ManageServicesPage';
+import { ManageBarbersPage } from './pages/owner/ManageBarbersPage';
+
 function PlaceholderPage({ title, description }: { title: string; description: string }) {
   return (
     <div className="space-y-4">
@@ -121,10 +124,7 @@ function App() {
                 path="/owner/services"
                 element={
                   <ProtectedRoute allowedRoles={['OWNER']}>
-                    <PlaceholderPage
-                      title="Manage Services"
-                      description="Add, edit, and price salon haircuts, trims and packages"
-                    />
+                    <ManageServicesPage />
                   </ProtectedRoute>
                 }
               />
@@ -132,10 +132,7 @@ function App() {
                 path="/owner/barbers"
                 element={
                   <ProtectedRoute allowedRoles={['OWNER']}>
-                    <PlaceholderPage
-                      title="Manage Barbers"
-                      description="Add barbers, change active staff, view assignments"
-                    />
+                    <ManageBarbersPage />
                   </ProtectedRoute>
                 }
               />
