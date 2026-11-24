@@ -6,18 +6,30 @@ export const corsOptions: CorsOptions = {
     // Allow server-to-server or curl/mobile requests without origin header
     if (!origin) return callback(null, true);
 
-    const allowedOrigins = [
-      env.FRONTEND_URL,
+    const cleanOrigin = origin.replace(/\/+$/, '');
+
+    // Parse comma-separated or single FRONTEND_URL
+    const configuredOrigins = (env.FRONTEND_URL || '')
+      .split(',')
+      .map((url) => url.trim().replace(/\/+$/, ''))
+      .filter(Boolean);
+
+    const defaultOrigins = [
+      'https://salon-management-assignment-2026120.vercel.app',
       'http://localhost:5173',
       'http://localhost:3000',
       'http://localhost:3001',
       'https://localhost:5173',
-    ].filter(Boolean);
+    ];
 
-    // Support comma-separated FRONTEND_URL or vercel preview deployments
+    const allowedOrigins = new Set([...configuredOrigins, ...defaultOrigins]);
+
+    // Check if origin is explicitly allowed or matches a vercel.app domain or non-production mode
+    const isVercelDomain = /^https:\/\/[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.vercel\.app$/.test(cleanOrigin);
+
     const isAllowed =
-      allowedOrigins.includes(origin) ||
-      origin.endsWith('.vercel.app') ||
+      allowedOrigins.has(cleanOrigin) ||
+      isVercelDomain ||
       env.NODE_ENV !== 'production';
 
     if (isAllowed) {
@@ -28,5 +40,8 @@ export const corsOptions: CorsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  exposedHeaders: ['Set-Cookie'],
+  maxAge: 86400,
 };
+
