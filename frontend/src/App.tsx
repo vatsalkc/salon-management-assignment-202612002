@@ -13,6 +13,7 @@ import { ManageBarbersPage } from './pages/owner/ManageBarbersPage';
 
 import { JoinQueuePage } from './pages/customer/JoinQueuePage';
 import { CustomerHistoryPage } from './pages/customer/CustomerHistoryPage';
+import { ReceptionDashboardPage } from './pages/reception/ReceptionDashboardPage';
 
 function PlaceholderPage({ title, description }: { title: string; description: string }) {
   return (
@@ -65,10 +66,7 @@ function App() {
                 path="/reception"
                 element={
                   <ProtectedRoute allowedRoles={['RECEPTIONIST', 'OWNER']}>
-                    <PlaceholderPage
-                      title="Reception Queue Dashboard"
-                      description="Manage live waiting line, call next, skip, and register walk-ins"
-                    />
+                    <ReceptionDashboardPage />
                   </ProtectedRoute>
                 }
               />
