@@ -16,6 +16,10 @@ import { CustomerHistoryPage } from './pages/customer/CustomerHistoryPage';
 import { ReceptionDashboardPage } from './pages/reception/ReceptionDashboardPage';
 import { BarberDashboardPage } from './pages/barber/BarberDashboardPage';
 
+import { OwnerDashboardPage } from './pages/owner/OwnerDashboardPage';
+import { OwnerAnalyticsPage } from './pages/owner/OwnerAnalyticsPage';
+import { OwnerSettingsPage } from './pages/owner/OwnerSettingsPage';
+
 function PlaceholderPage({ title, description }: { title: string; description: string }) {
   return (
     <div className="space-y-4">
@@ -98,10 +102,7 @@ function App() {
                 path="/owner"
                 element={
                   <ProtectedRoute allowedRoles={['OWNER']}>
-                    <PlaceholderPage
-                      title="Owner Dashboard"
-                      description="Salon KPIs, live queue summary, and quick actions"
-                    />
+                    <OwnerDashboardPage />
                   </ProtectedRoute>
                 }
               />
@@ -125,10 +126,7 @@ function App() {
                 path="/owner/analytics"
                 element={
                   <ProtectedRoute allowedRoles={['OWNER']}>
-                    <PlaceholderPage
-                      title="Analytics & Reports"
-                      description="Customer throughput, wait time metrics, popular services"
-                    />
+                    <OwnerAnalyticsPage />
                   </ProtectedRoute>
                 }
               />
@@ -136,10 +134,7 @@ function App() {
                 path="/owner/settings"
                 element={
                   <ProtectedRoute allowedRoles={['OWNER']}>
-                    <PlaceholderPage
-                      title="Salon Settings"
-                      description="Queue open/close, operating hours, capacity"
-                    />
+                    <OwnerSettingsPage />
                   </ProtectedRoute>
                 }
               />

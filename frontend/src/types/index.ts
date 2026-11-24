@@ -144,6 +144,7 @@ export interface BarberStats {
 export interface ServiceStats {
   serviceId: string;
   serviceName: string;
+  category?: string;
   count: number;
   revenue: number;
 }
