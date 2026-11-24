@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────
+
+enum Role {
+  CUSTOMER
+  RECEPTIONIST
+  BARBER
+  OWNER
+}
+
+enum BarberStatus {
+  AVAILABLE
+  BUSY
+  ON_BREAK
+  OFFLINE
+}
+
+enum QueueStatus {
+  WAITING
+  CALLED
+  IN_SERVICE
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+// ─── Models ──────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String   @unique
+  password  String
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  barberProfile Barber?
+  queueEntries  QueueEntry[]
+
+  @@map("users")
+}
+
+model Barber {
+  id             String       @id @default(cuid())
+  userId         String       @unique
+  name           String
+  specialization String?
+  status         BarberStatus @default(OFFLINE)
+  sortOrder      Int          @default(0)
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  queueEntries QueueEntry[]
+
+  @@map("barbers")
+}
+
+model Service {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  durationMinutes Int
+  price           Float
+  category        String?
+  isActive        Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  queueEntryServices QueueEntryService[]
+
+  @@map("services")
+}
+
+model QueueEntry {
+  id                   String      @id @default(cuid())
+  tokenNumber          String
+  customerName         String
+  customerPhone        String
+  customerId           String?
+  barberId             String?
+  status               QueueStatus @default(WAITING)
+  position             Int
+  joinedAt             DateTime    @default(now())
+  calledAt             DateTime?
+  startedAt            DateTime?
+  completedAt          DateTime?
+  cancelledAt          DateTime?
+  estimatedWaitMinutes Int         @default(0)
+  notes                String?
+
+  customer User?   @relation(fields: [customerId], references: [id])
+  barber   Barber? @relation(fields: [barberId], references: [id])
+  services QueueEntryService[]
+
+  @@index([status])
+  @@index([customerPhone, status])
+  @@index([barberId, status])
+  @@index([joinedAt])
+  @@map("queue_entries")
+}
+
+model QueueEntryService {
+  id           String @id @default(cuid())
+  queueEntryId String
+  serviceId    String
+
+  queueEntry QueueEntry @relation(fields: [queueEntryId], references: [id], onDelete: Cascade)
+  service    Service    @relation(fields: [serviceId], references: [id])
+
+  @@unique([queueEntryId, serviceId])
+  @@map("queue_entry_services")
+}
+
+model SalonSettings {
+  id           String   @id @default(cuid())
+  salonName    String   @default("My Salon")
+  isQueueOpen  Boolean  @default(true)
+  openTime     String   @default("09:00")
+  closeTime    String   @default("21:00")
+  maxQueueSize Int      @default(50)
+  timezone     String   @default("Asia/Kolkata")
+  updatedAt    DateTime @updatedAt
+
+  @@map("salon_settings")
+}
