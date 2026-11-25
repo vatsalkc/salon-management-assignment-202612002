@@ -1,3 +1,9 @@
+Github Repo Link : (https://github.com/vatsalkc/salon-management-assignment-202612002)
+Vercel Link(frontend) : (https://vercel.com/berlininmoneyheist-5644s-projects/salon-management-assignment-202612002)
+render Link(backend) : (https://dashboard.render.com/project/prj-dc2ql861egvs73b3eebg)
+
+
+
 # 💈 Elite Cuts — Salon Queue Management SaaS
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)](https://www.typescriptlang.org/)
